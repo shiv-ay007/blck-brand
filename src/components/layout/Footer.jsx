@@ -11,7 +11,7 @@ export default function Footer() {
       </div>
       <div className="shell footer__grid">
         <div className="footer__brand"><BrandLogo inverse /><p>Unapologetic. Independent. Different by design. Streetwear from New Delhi.</p></div>
-        <div><p className="footer__label">EXPLORE</p><NavLink to="/">Home</NavLink><NavLink to="/shop">Shop</NavLink><NavLink to="/about">Our Story</NavLink><NavLink to="/contact">Contact</NavLink></div>
+        <div><p className="footer__label">EXPLORE</p><NavLink to="/">Home</NavLink><NavLink to="/collections">Collections</NavLink><NavLink to="/shop">Shop</NavLink><NavLink to="/about">Our Story</NavLink><NavLink to="/contact">Contact</NavLink></div>
         <div><p className="footer__label">HELP & POLICIES</p><NavLink to="/policies/shipping">Shipping Info</NavLink><NavLink to="/policies/returns">Returns & Exchanges</NavLink><NavLink to="/policies/privacy">Privacy Policy</NavLink><NavLink to="/policies/terms">Terms of Service</NavLink></div>
         <div><p className="footer__label">GET IN TOUCH</p><a href="mailto:blckofficial2026@gmail.com">blckofficial2026@gmail.com</a><a href="https://wa.me/919899733351" target="_blank" rel="noreferrer">WhatsApp: +91 98997 33351 <ArrowUpRight size={12}/></a><span>New Delhi, India</span></div>
       </div>
