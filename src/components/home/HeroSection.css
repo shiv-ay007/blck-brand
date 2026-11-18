@@ -59,7 +59,8 @@
   filter: drop-shadow(0 22px 23px rgba(0,0,0,.47));
 }
 .minimal-hero__coin:active { filter: brightness(1.1) drop-shadow(0 14px 12px rgba(0,0,0,.45)); }
-.minimal-hero__coin:focus-visible { outline: 2px solid white; outline-offset: 5px; }
+.minimal-hero__coin:focus,
+.minimal-hero__coin:focus-visible { outline: none !important; }
 .minimal-hero__coin-face {
   display: grid;
   place-items: center;
