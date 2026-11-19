@@ -68,9 +68,7 @@ export default function Header() {
   const isTransparent = isHome && !scrolled && !menuOpen && !searchOpen;
   const headerThemeClasses = isTransparent
     ? 'bg-transparent text-white border-transparent'
-    : isHome
-    ? 'bg-[#031d25]/92 backdrop-blur-md border-b border-white/10 text-white shadow-lg'
-    : 'bg-[#f7f7f4]/95 backdrop-blur-md border-b border-[#deded8] text-[#111] shadow-xs';
+    : 'bg-white/85 backdrop-blur-md border-b border-black/10 text-black shadow-xs';
 
   return (
     <>
@@ -85,9 +83,9 @@ export default function Header() {
           <div className="flex md:hidden items-center z-10">
             <div
               className={`flex items-center gap-2.5 px-3 py-1.5 rounded-full border transition-all ${
-                isTransparent || isHome
+                isTransparent
                   ? 'bg-black/35 backdrop-blur-md border-white/20 text-white shadow-xs'
-                  : 'bg-black/5 backdrop-blur-md border-black/10 text-[#111]'
+                  : 'bg-black/5 backdrop-blur-md border-black/10 text-black shadow-xs'
               }`}
             >
               {/* Hamburger Button on Left */}
@@ -111,8 +109,8 @@ export default function Header() {
                 <img
                   src="/assets/blck-wordmark.png"
                   alt="BLCK"
-                  className={`h-3.5 object-contain ${
-                    isTransparent || isHome ? 'filter brightness-0 invert' : ''
+                  className={`h-3.5 object-contain transition-all duration-300 ${
+                    isTransparent ? 'filter brightness-0 invert' : 'filter-none'
                   }`}
                 />
               </Link>
@@ -156,8 +154,8 @@ export default function Header() {
               <img
                 src="/assets/blck-wordmark.png"
                 alt="BLCK"
-                className={`h-5 md:h-6 object-contain transition-all ${
-                  !isTransparent && !isHome ? 'filter-none' : ''
+                className={`h-5 md:h-6 object-contain transition-all duration-300 ${
+                  isTransparent ? 'brightness-0 invert' : 'filter-none'
                 }`}
               />
             </Link>
@@ -200,19 +198,25 @@ export default function Header() {
         {searchOpen && (
           <form
             onSubmit={runSearch}
-            className="w-full bg-[#0a1b22] border-t border-b border-white/10 px-4 sm:px-6 md:px-16 py-3 sm:py-4 flex items-center gap-3 sm:gap-4 text-white animate-in slide-in-from-top-2 duration-200"
+            className={`w-full border-t border-b px-4 sm:px-6 md:px-16 py-3 sm:py-4 flex items-center gap-3 sm:gap-4 animate-in slide-in-from-top-2 duration-200 ${
+              isTransparent
+                ? 'bg-[#0a1b22] border-white/10 text-white'
+                : 'bg-white/95 backdrop-blur-md border-black/10 text-black shadow-sm'
+            }`}
           >
             <input
               autoFocus
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="SEARCH DROPS, SOCKS, APPAREL..."
-              className="w-full bg-transparent text-xs sm:text-sm md:text-base font-bold tracking-wider placeholder-white/40 outline-none text-white"
+              className={`w-full bg-transparent text-xs sm:text-sm md:text-base font-bold tracking-wider outline-none ${
+                isTransparent ? 'placeholder-white/40 text-white' : 'placeholder-black/40 text-black'
+              }`}
               aria-label="Search query"
             />
             <button
               type="submit"
-              className="p-1 hover:text-[#028f99] transition-colors"
+              className="p-1 hover:opacity-60 transition-opacity"
               aria-label="Submit search"
             >
               <ArrowUpRight size={18} strokeWidth={2} />
@@ -220,7 +224,7 @@ export default function Header() {
             <button
               type="button"
               onClick={() => setSearchOpen(false)}
-              className="p-1 hover:opacity-60 text-white/70"
+              className="p-1 hover:opacity-60 opacity-70"
               aria-label="Close search"
             >
               <X size={17} />

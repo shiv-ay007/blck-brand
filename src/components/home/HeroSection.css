@@ -1,4 +1,4 @@
-/* BLCK / still-photo minimalist hero. Isolated CSS keeps other pages unchanged. */
+/* BLCK / minimalist video hero. Isolated CSS keeps other pages unchanged. */
 .minimal-hero {
   position: relative;
   width: 100%;
@@ -6,7 +6,7 @@
   height: 100svh;
   overflow: hidden;
   isolation: isolate;
-  background: #031d25;
+  background: #040d12;
   color: white;
 }
 .minimal-hero__photo {
@@ -16,7 +16,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 48%;
+  object-position: center 32%;
   user-select: none;
   -webkit-user-drag: none;
 }
@@ -25,15 +25,17 @@
   inset: 0;
   pointer-events: none;
   background: linear-gradient(to bottom,
-    rgba(0, 13, 18, .17) 0%,
-    transparent 27%,
-    transparent 69%,
-    rgba(0, 10, 14, .21) 100%);
+    rgba(2, 8, 12, 0.45) 0%,
+    rgba(2, 8, 12, 0.15) 18%,
+    transparent 32%,
+    transparent 68%,
+    rgba(2, 8, 12, 0.22) 82%,
+    rgba(2, 8, 12, 0.58) 100%);
 }
 .minimal-hero__interaction {
   position: absolute;
   left: 50%;
-  top: 51%;
+  top: 50%;
   z-index: 2;
   width: 0;
   height: 0;
@@ -165,14 +167,7 @@
   transition: gap .25s ease, opacity .25s ease;
 }
 .minimal-hero__shop:hover { gap: 12px; opacity: .84; }
-/* The central wordmark is BLACK as in the reference. Navigation remains readable on dark edges. */
-.site-header--transparent .site-nav__brand img { filter: none !important; }
-.site-header--transparent .site-nav__left a,
-.site-header--transparent .site-nav__right .icon-button { color: #fff; text-shadow: 0 1px 9px #0010178c; }
-.site-nav { height: 76px; }
-.site-nav__brand { width: 150px; }
-.site-header--transparent { border-bottom: 0; }
-.site-header--transparent .site-nav__left > a { font-weight: 500; letter-spacing: .04em; }
+
 @media (max-width: 760px) {
   .minimal-hero { min-height: 560px; height: 100svh; }
   .minimal-hero__photo { object-position: 50% center; }

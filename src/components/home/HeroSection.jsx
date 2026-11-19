@@ -9,12 +9,15 @@ import './HeroSection.css';
 export default function HeroSection() {
   return (
     <section className="minimal-hero" aria-label="BLCK hero section">
-      <img
+      <video
         className="minimal-hero__photo"
-        src="/assets/hero-editorial.webp"
-        alt="Streetwear model in teal studio"
-        fetchPriority="high"
-        decoding="async"
+        src="/assets/backgroundd_herovideo12.mp4"
+        // poster="/assets/hero-video-poster.webp"
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
       />
       <div className="minimal-hero__fade" aria-hidden="true" />
 
