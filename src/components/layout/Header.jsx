@@ -78,17 +78,53 @@ export default function Header() {
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${headerThemeClasses}`}
       >
         <nav
-          className="max-w-[1460px] w-[calc(100%-48px)] md:w-[calc(100%-92px)] mx-auto h-[74px] md:h-[84px] grid grid-cols-3 items-center"
+          className="relative max-w-[1460px] w-full px-3.5 sm:px-6 md:px-10 lg:px-12 mx-auto h-[60px] sm:h-[68px] md:h-[80px] lg:h-[84px] flex items-center justify-between"
           aria-label="Main navigation"
         >
-          {/* Left Navigation: NEW IN, COLLECTIONS, and HOME icon */}
-          <div className="flex items-center gap-5 md:gap-7 text-[10px] md:text-[11px] font-bold tracking-[0.14em] uppercase">
+          {/* MOBILE ONLY (< md): Hamburger on Left with Attached BLCK Logo (Bluorng Capsule Pill Style) */}
+          <div className="flex md:hidden items-center z-10">
+            <div
+              className={`flex items-center gap-2.5 px-3 py-1.5 rounded-full border transition-all ${
+                isTransparent || isHome
+                  ? 'bg-black/35 backdrop-blur-md border-white/20 text-white shadow-xs'
+                  : 'bg-black/5 backdrop-blur-md border-black/10 text-[#111]'
+              }`}
+            >
+              {/* Hamburger Button on Left */}
+              <button
+                type="button"
+                onClick={() => setMenuOpen(true)}
+                className="flex items-center justify-center p-0.5 hover:opacity-70 transition-opacity text-inherit"
+                aria-label="Open navigation menu"
+              >
+                <Menu size={17} strokeWidth={2} />
+              </button>
+
+              <span className="w-px h-3.5 bg-current opacity-25" aria-hidden="true" />
+
+              {/* Attached BLCK Logo */}
+              <Link
+                to="/"
+                className="flex items-center justify-center"
+                aria-label="BLCK Home"
+              >
+                <img
+                  src="/assets/blck-wordmark.png"
+                  alt="BLCK"
+                  className={`h-3.5 object-contain ${
+                    isTransparent || isHome ? 'filter brightness-0 invert' : ''
+                  }`}
+                />
+              </Link>
+            </div>
+          </div>
+
+          {/* DESKTOP ONLY (>= md): Left Navigation (NEW IN, COLLECTIONS, HOME) */}
+          <div className="hidden md:flex items-center gap-6 text-[11px] font-bold tracking-[0.14em] uppercase z-10 flex-shrink-0">
             <NavLink
               to="/shop"
               className={({ isActive }) =>
-                `transition-opacity hover:opacity-60 hidden sm:inline-block ${
-                  isActive ? 'opacity-60' : ''
-                }`
+                `transition-opacity hover:opacity-60 ${isActive ? 'opacity-60' : ''}`
               }
             >
               NEW IN
@@ -97,7 +133,7 @@ export default function Header() {
             <NavLink
               to="/collections"
               className={({ isActive }) =>
-                `transition-opacity hover:opacity-60 ${isActive ? 'opacity-60' : ''}`
+                `transition-opacity hover:opacity-60 whitespace-nowrap ${isActive ? 'opacity-60' : ''}`
               }
             >
               COLLECTIONS
@@ -108,14 +144,14 @@ export default function Header() {
               to="/"
               title="Home"
               aria-label="Go to Home"
-              className="flex items-center justify-center p-1 hover:opacity-60 transition-opacity"
+              className="flex items-center justify-center p-1.5 hover:opacity-60 transition-opacity"
             >
               <Home size={15} strokeWidth={2} />
             </Link>
           </div>
 
-          {/* Centered Brand Wordmark */}
-          <div className="flex items-center justify-center">
+          {/* DESKTOP ONLY (>= md): Centered Brand Wordmark */}
+          <div className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-auto items-center justify-center">
             <Link to="/" className="inline-flex items-center justify-center" aria-label="BLCK Home">
               <img
                 src="/assets/blck-wordmark.png"
@@ -127,11 +163,11 @@ export default function Header() {
             </Link>
           </div>
 
-          {/* Right Navigation: Search, Cart & Menu */}
-          <div className="flex items-center justify-end gap-3 md:gap-5">
+          {/* Right Navigation: Search & Cart (plus Menu on desktop) */}
+          <div className="flex items-center justify-end gap-1.5 sm:gap-2.5 md:gap-4 z-10 flex-shrink-0">
             <button
               type="button"
-              className="p-2 hover:opacity-60 transition-opacity"
+              className="p-1.5 sm:p-2 hover:opacity-60 transition-opacity"
               aria-label="Search products"
               onClick={() => setSearchOpen((val) => !val)}
             >
@@ -140,7 +176,7 @@ export default function Header() {
 
             <button
               type="button"
-              className="relative p-2 flex items-center gap-1.5 hover:opacity-60 transition-opacity"
+              className="relative p-1.5 sm:p-2 flex items-center gap-1.5 hover:opacity-60 transition-opacity"
               aria-label={`Open cart with ${itemCount} items`}
               onClick={() => setDrawerOpen(true)}
             >
@@ -148,9 +184,10 @@ export default function Header() {
               <span className="text-[11px] font-bold">{itemCount}</span>
             </button>
 
+            {/* Desktop Hamburger Menu (on mobile it is in the left pill) */}
             <button
               type="button"
-              className="p-2 hover:opacity-60 transition-opacity"
+              className="hidden md:flex p-2 hover:opacity-60 transition-opacity items-center justify-center"
               onClick={() => setMenuOpen(true)}
               aria-label="Open menu"
             >
@@ -163,14 +200,14 @@ export default function Header() {
         {searchOpen && (
           <form
             onSubmit={runSearch}
-            className="w-full bg-[#0a1b22] border-t border-b border-white/10 px-6 md:px-16 py-4 flex items-center gap-4 text-white animate-in slide-in-from-top-2 duration-200"
+            className="w-full bg-[#0a1b22] border-t border-b border-white/10 px-4 sm:px-6 md:px-16 py-3 sm:py-4 flex items-center gap-3 sm:gap-4 text-white animate-in slide-in-from-top-2 duration-200"
           >
             <input
               autoFocus
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="SEARCH DROPS, SOCKS, APPAREL..."
-              className="w-full bg-transparent text-sm md:text-base font-bold tracking-wider placeholder-white/40 outline-none text-white"
+              className="w-full bg-transparent text-xs sm:text-sm md:text-base font-bold tracking-wider placeholder-white/40 outline-none text-white"
               aria-label="Search query"
             />
             <button
@@ -178,7 +215,7 @@ export default function Header() {
               className="p-1 hover:text-[#028f99] transition-colors"
               aria-label="Submit search"
             >
-              <ArrowUpRight size={20} strokeWidth={2} />
+              <ArrowUpRight size={18} strokeWidth={2} />
             </button>
             <button
               type="button"
@@ -186,7 +223,7 @@ export default function Header() {
               className="p-1 hover:opacity-60 text-white/70"
               aria-label="Close search"
             >
-              <X size={18} />
+              <X size={17} />
             </button>
           </form>
         )}
@@ -232,17 +269,17 @@ export default function Header() {
                   onClick={() => setMenuOpen(false)}
                   className="group flex items-center justify-between py-2 border-b border-white/10 hover:border-white transition-colors"
                 >
-                  <div className="flex items-baseline gap-4 md:gap-6">
-                    <span className="text-xs md:text-sm font-mono text-white/40 group-hover:text-[#028f99] transition-colors">
+                  <div className="flex items-baseline gap-3 sm:gap-4 md:gap-6">
+                    <span className="text-[11px] sm:text-xs md:text-sm font-mono text-white/40 group-hover:text-[#028f99] transition-colors">
                       0{index + 1}
                     </span>
-                    <span className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tighter uppercase group-hover:translate-x-2 transition-transform">
+                    <span className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter uppercase group-hover:translate-x-2 transition-transform">
                       {item.label}
                     </span>
                   </div>
                   <ArrowUpRight
-                    size={28}
-                    className="opacity-30 group-hover:opacity-100 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-[#028f99] transition-all"
+                    size={22}
+                    className="sm:w-7 sm:h-7 opacity-30 group-hover:opacity-100 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-[#028f99] transition-all"
                   />
                 </NavLink>
               ))}

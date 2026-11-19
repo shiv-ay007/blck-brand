@@ -1,9 +1,9 @@
-/* 3D Coin & Levitation Scene - Clean Bluorng Style */
+/* 3D Coin & Levitation Scene - Clean Single Circle Matte Studio Grey 3D Puck */
 .hero-3d-scene {
   position: absolute;
   left: 0;
   top: 0;
-  width: clamp(96px, 10vw, 144px);
+  width: clamp(84px, 8.5vw, 118px);
   aspect-ratio: 1;
   transform: translate(-50%, -50%);
   perspective: 1100px;
@@ -17,11 +17,9 @@
 
 @media (max-width: 760px) {
   .hero-3d-scene {
-    width: 100px;
+    width: 82px;
   }
 }
-
-
 
 /* Native button container for accessibility & cursor feedback */
 .hero-3d-coin-trigger {
@@ -38,17 +36,17 @@
   border-radius: 50%;
   transform-style: preserve-3d;
   -webkit-tap-highlight-color: transparent;
-  filter: drop-shadow(1px 18px 15px rgba(0, 0, 0, 0.44));
+  filter: drop-shadow(0 20px 22px rgba(0, 0, 0, 0.52));
   transition: filter 0.35s ease;
 }
 
 .hero-3d-coin-trigger:hover {
-  filter: drop-shadow(0 22px 23px rgba(0, 0, 0, 0.48));
+  filter: drop-shadow(0 24px 26px rgba(0, 0, 0, 0.58));
 }
 
 .hero-3d-coin-trigger:active {
   cursor: grabbing;
-  filter: brightness(1.08) drop-shadow(0 14px 12px rgba(0, 0, 0, 0.45));
+  filter: brightness(1.06) drop-shadow(0 14px 16px rgba(0, 0, 0, 0.48));
 }
 
 .hero-3d-coin-trigger,
@@ -62,7 +60,7 @@
   -webkit-tap-highlight-color: transparent !important;
 }
 
-/* 3D Coin Body */
+/* 3D Coin Body (Preserves true 3D spatial geometry) */
 .hero-3d-coin {
   position: relative;
   width: 100%;
@@ -72,7 +70,25 @@
   will-change: transform;
 }
 
-/* Front & Back Faces - Pure Clean Coin with Original Metallic Finish */
+/* Cylindrical Edge Slices: Stacks to create real 20px physical thickness ("mota") */
+.hero-3d-coin__edge-slice {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 50% 50%,
+    #56585d 0%,
+    #4a4c51 70%,
+    #3b3d42 100%
+  );
+  border: 1px solid #5d6066;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+/* Front & Back Faces - Pure Clean Single Circle (Only One Circle, No Nested Rings) */
 .hero-3d-coin__face {
   position: absolute;
   inset: 0;
@@ -81,46 +97,53 @@
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  border: 4px solid #aeb0b1;
-  background: radial-gradient(circle at 30% 20%, #f0f1f0 4%, #c3c7c6 35%, #6b7277 73%, #dedede 100%);
+  border: none;
+  background: radial-gradient(
+    circle at 34% 28%,
+    #c4c6cb 0%,
+    #a6a9ae 40%,
+    #919499 80%,
+    #84878c 100%
+  );
   box-shadow:
-    inset 0 0 0 3px rgba(255, 255, 255, 0.3),
-    inset 0 -8px 10px rgba(25, 30, 33, 0.33),
-    0 1px 1px rgba(255, 255, 255, 0.6);
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.55),
+    inset 0 -2.5px 4px rgba(0, 0, 0, 0.35),
+    0 1px 2px rgba(0, 0, 0, 0.4);
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
 
 .hero-3d-coin__face--front {
-  transform: translateZ(1.5px);
+  transform: translateZ(7.5px);
 }
 
 .hero-3d-coin__face--back {
-  transform: translateZ(-1.5px) rotateY(180deg);
+  transform: translateZ(-7.5px) rotateY(180deg);
 }
 
-/* Monogram Logo */
+/* Clean Carved/Debossed Emblem directly on the single circular face */
 .hero-3d-coin__logo {
-  width: 75%;
-  height: 75%;
+  width: 66%;
+  height: 66%;
   object-fit: contain;
-  opacity: 0.96;
+  opacity: 0.88;
+  filter: drop-shadow(0 2px 1.5px rgba(255, 255, 255, 0.45)) drop-shadow(0 -1.5px 2px rgba(0, 0, 0, 0.65));
   pointer-events: none;
   user-select: none;
 }
 
-/* Dynamic Levitation Floor Shadow */
+/* Dynamic Levitation Floor Contact Shadow */
 .hero-3d-coin__shadow {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 120px;
-  height: 42px;
+  width: 105px;
+  height: 36px;
   border-radius: 50%;
   background: radial-gradient(
     ellipse at center,
-    rgba(0, 5, 8, 0.65) 0%,
-    rgba(0, 8, 12, 0.3) 45%,
+    rgba(0, 0, 0, 0.72) 0%,
+    rgba(0, 0, 0, 0.32) 45%,
     transparent 72%
   );
   filter: blur(8px);
@@ -129,8 +152,6 @@
   transition: opacity 0.2s ease;
   will-change: transform, opacity;
 }
-
-
 
 @media (prefers-reduced-motion: reduce) {
   .hero-3d-coin,

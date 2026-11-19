@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import './Hero3DCoin.css';
 
+const SLICE_COUNT = 17;
+const edgeSlices = Array.from({ length: SLICE_COUNT }, (_, i) => -7 + (i * 14) / (SLICE_COUNT - 1));
+
 export default function Hero3DCoin() {
   const coinRef = useRef(null);
   const animFrameRef = useRef(null);
@@ -172,7 +175,17 @@ export default function Hero3DCoin() {
         onPointerCancel={handlePointerUp}
       >
         <div ref={coinRef} className="hero-3d-coin">
-          {/* Front Face: Clean coin with monogram */}
+          {/* 3D Solid Cylinder Edge Extrusion (Thick "mota" 3D coin depth matching Bluorng reference) */}
+          {edgeSlices.map((z, idx) => (
+            <div
+              key={idx}
+              className="hero-3d-coin__edge-slice"
+              style={{ transform: `translateZ(${z.toFixed(2)}px)` }}
+              aria-hidden="true"
+            />
+          ))}
+
+          {/* Front Face: Single Clean Circular Face (Only One Circle matching reference) */}
           <div className="hero-3d-coin__face hero-3d-coin__face--front">
             <img
               src="/assets/blck-monogram.png"
@@ -182,7 +195,7 @@ export default function Hero3DCoin() {
             />
           </div>
 
-          {/* Back Face: Clean coin with monogram for 360 degree spin */}
+          {/* Back Face: Single Clean Circular Face */}
           <div className="hero-3d-coin__face hero-3d-coin__face--back">
             <img
               src="/assets/blck-monogram.png"
