@@ -16,7 +16,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 32%;
+  object-position: center center;
   user-select: none;
   -webkit-user-drag: none;
 }
@@ -169,8 +169,27 @@
 .minimal-hero__shop:hover { gap: 12px; opacity: .84; }
 
 @media (max-width: 760px) {
-  .minimal-hero { min-height: 560px; height: 100svh; }
-  .minimal-hero__photo { object-position: 50% center; }
+  .minimal-hero {
+    min-height: 100svh;
+    height: 100svh;
+  }
+
+  /* ── Video fix for portrait mobile ──────────────────────────────────────
+     Landscape video + portrait screen → object-fit:cover crops too much.
+     Instead: pin video to top-center at full width, let height be natural.
+     The dark #040d12 background fills any gap above/below.              */
+  .minimal-hero__photo {
+    position: absolute;
+    inset: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: auto;
+    min-height: 56.25vw; /* 16:9 ratio at full viewport width */
+    object-fit: fill;
+  }
+
   .minimal-hero__interaction { top: 49%; }
   .minimal-hero__coin { width: 100px; }
   .minimal-hero__interaction.is-expanded .minimal-hero__coin {

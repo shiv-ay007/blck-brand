@@ -1,17 +1,17 @@
 import HeroSection from '../components/home/HeroSection.jsx';
-import MarqueeSection from '../components/home/MarqueeSection.jsx';
+import HeroBridgeSection from '../components/home/HeroBridgeSection.jsx';
 import ProductCardsSection from '../components/common/ProductCardsSection.jsx';
 import DropSection from '../components/home/DropSection.jsx';
-import StorySection from '../components/home/StorySection.jsx';
 import CommunitySection from '../components/home/CommunitySection.jsx';
+import AboutPreviewSection from '../components/home/AboutPreviewSection.jsx';
 
 export default function Home() {
   return (
     <>
       <HeroSection />
-      <MarqueeSection />
+      <HeroBridgeSection />
+      <AboutPreviewSection />
       <DropSection />
-      <StorySection />
       <ProductCardsSection title="Latest drop · Night Market" viewAllLink="/collections" />
       <CommunitySection />
     </>

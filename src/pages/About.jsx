@@ -1,2 +1,5 @@
 import AboutStorySection from '../components/about/AboutStorySection.jsx';
-export default function About() { return <AboutStorySection/>; }
+
+export default function About() {
+  return <AboutStorySection />;
+}

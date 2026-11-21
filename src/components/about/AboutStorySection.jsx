@@ -2,5 +2,60 @@ import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export default function AboutStorySection() {
-  return <section className="about-page"><div className="about-hero"><div className="shell"><span className="eyebrow eyebrow--light">WHO WE ARE / THE BLCK STORY</span><h1>NOT HERE<br/>TO <em>FIT IN.</em></h1><p>AN ATTITUDE. A DIRECTION. A WAY TO SHOW UP.</p></div></div><div className="about-description shell"><span className="eyebrow">001 / WHAT WE BELIEVE</span><div><h2>THE DIFFERENCE<br/>IS IN THE <em>DETAILS.</em></h2><p>BLCK is a New Delhi streetwear project with its own point of view. An independent expression of individuality, brought to life through bold graphics and considered everyday pieces.</p><p>Our first spotlight is the 310 Green Monster socks. This is where the story starts — and the next chapter is yours to write.</p><Link to="/shop" className="arrow-link">SEE THE FIRST DROP <ArrowUpRight size={20}/></Link></div></div><div className="about-panels"><div><img src="/assets/editorial-crop.webp" alt="BLCK editorial streetwear style"/></div><div><img src="/assets/blck-310-green-socks.webp" alt="BLCK 310 Green Monster socks"/></div></div><div className="about-bottom shell"><p>INDEPENDENT BY DESIGN.</p><img src="/assets/blck-wordmark.png" alt="BLCK"/></div></section>;
+  return (
+    <section className="about-page">
+      <div className="about-hero">
+        <div className="shell">
+          <span className="eyebrow eyebrow--light">WHO WE ARE / THE BLCK STORY</span>
+          <h1>
+            NOT HERE<br />
+            TO <em>FIT IN.</em>
+          </h1>
+          <p>AN ATTITUDE. A DIRECTION. A WAY TO SHOW UP.</p>
+        </div>
+      </div>
+
+      <div className="about-description shell">
+        <span className="eyebrow">001 / WHAT WE BELIEVE</span>
+        <div>
+          <h2>
+            THE DIFFERENCE<br />
+            IS IN THE <em>DETAILS.</em>
+          </h2>
+          <p>
+            BLCK is a New Delhi streetwear project with its own point of view.
+            An independent expression of individuality, brought to life through
+            bold graphics and considered everyday pieces.
+          </p>
+          <p>
+            Our first spotlight is the 310 Green Monster socks. This is where
+            the story starts – and the next chapter is yours to write.
+          </p>
+          <Link to="/shop" className="arrow-link">
+            SEE THE FIRST DROP <ArrowUpRight size={20} />
+          </Link>
+        </div>
+      </div>
+
+      <div className="about-panels">
+        <div>
+          <img
+            src="/assets/editorial-crop.webp"
+            alt="BLCK editorial streetwear style"
+          />
+        </div>
+        <div>
+          <img
+            src="/assets/blck-310-green-socks.webp"
+            alt="BLCK 310 Green Monster socks"
+          />
+        </div>
+      </div>
+
+      <div className="about-bottom shell">
+        <p>INDEPENDENT BY DESIGN.</p>
+        <img src="/assets/blck-wordmark.png" alt="BLCK" />
+      </div>
+    </section>
+  );
 }

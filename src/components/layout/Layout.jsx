@@ -5,5 +5,15 @@ import CartDrawer from './CartDrawer.jsx';
 import ScrollToTop from '../common/ScrollToTop.jsx';
 
 export default function Layout() {
-  return <><ScrollToTop /><Header/><main id="main-content"><Outlet/></main><Footer/><CartDrawer/></>;
+  return (
+    <>
+      <ScrollToTop />
+      <Header />
+      <main id="main-content">
+        <Outlet />
+      </main>
+      <Footer />
+      <CartDrawer />
+    </>
+  );
 }
