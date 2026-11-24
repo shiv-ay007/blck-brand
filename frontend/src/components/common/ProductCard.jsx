@@ -36,7 +36,7 @@ export default function ProductCard({ product }) {
       {/* Card Media Container with taller editorial streetwear height */}
       <Link
         to={`/product/${product.slug}`}
-        className="relative block aspect-[3/4.3] min-h-[370px] sm:min-h-[410px] md:min-h-[440px] w-full bg-[#f4f4f0] rounded-lg overflow-hidden border border-[#e5e5df] hover:border-black transition-all shadow-xs hover:shadow-md"
+        className="relative block aspect-[3/4.2] min-h-[340px] sm:min-h-[380px] md:min-h-[400px] w-full bg-[#f4f4f0] rounded-lg overflow-hidden border border-[#e5e5df] hover:border-black transition-all shadow-xs hover:shadow-md"
         aria-label={`View ${product.name}`}
       >
         {/* Top-left: "New" tag pill */}

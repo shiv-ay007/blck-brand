@@ -20,7 +20,10 @@ export default function ProductCardsSection({
 
   const scroll = (direction) => {
     if (scrollRef.current) {
-      const offset = direction === 'left' ? -340 : 340;
+      const card = scrollRef.current.firstElementChild;
+      const cardWidth = card ? card.getBoundingClientRect().width : 320;
+      const gap = 24; // gap-6
+      const offset = direction === 'left' ? -(cardWidth + gap) : (cardWidth + gap);
       scrollRef.current.scrollBy({ left: offset, behavior: 'smooth' });
     }
   };
@@ -70,13 +73,16 @@ export default function ProductCardsSection({
           </div>
         </div>
 
-        {/* Product Cards Carousel (Smooth horizontal scroll with taller, wider cards) */}
+        {/* Product Cards Carousel (Cards fit cleanly across grid without getting cut off on right) */}
         <div
           ref={scrollRef}
-          className="flex gap-5 md:gap-6 overflow-x-auto pb-6 pt-2 scrollbar-none snap-x snap-mandatory scroll-smooth"
+          className="flex gap-4 sm:gap-5 md:gap-6 overflow-x-auto pb-6 pt-2 scrollbar-none snap-x snap-mandatory scroll-smooth"
         >
           {products.map((product) => (
-            <div key={product.id} className="w-[280px] sm:w-[320px] md:w-[340px] flex-shrink-0 snap-start">
+            <div
+              key={product.id}
+              className="w-[82vw] sm:w-[calc((100%-1.25rem)/2)] md:w-[calc((100%-2*1.5rem)/3)] lg:w-[calc((100%-3*1.5rem)/4)] flex-shrink-0 snap-start"
+            >
               <ProductCard product={product} />
             </div>
           ))}

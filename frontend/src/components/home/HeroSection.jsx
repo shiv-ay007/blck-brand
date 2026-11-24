@@ -34,7 +34,6 @@ export default function HeroSection() {
         key={videoSrc}
         className="minimal-hero__photo"
         src={videoSrc}
-        poster="/assets/hero-video-poster.webp"
         autoPlay
         loop
         muted

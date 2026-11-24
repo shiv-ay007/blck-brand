@@ -239,83 +239,83 @@ export default function Header() {
           role="dialog"
           aria-modal="true"
           aria-label="Navigation menu"
-          className="fixed inset-0 z-[100] bg-[#021319]/98 text-white flex flex-col justify-between p-6 md:p-12 backdrop-blur-2xl overflow-y-auto animate-in fade-in duration-300"
+          className="fixed inset-0 z-[100] bg-[#021319]/98 text-white flex flex-col justify-between p-4 sm:p-6 md:px-12 md:py-6 lg:py-7 backdrop-blur-2xl overflow-y-auto scrollbar-none animate-in fade-in duration-300"
         >
           {/* Top Bar */}
-          <div className="max-w-[1460px] w-full mx-auto flex items-center justify-between pb-6 border-b border-white/10">
+          <div className="max-w-[1460px] w-full mx-auto flex items-center justify-between pb-3 md:pb-4 border-b border-white/10 flex-shrink-0">
             <Link to="/" onClick={() => setMenuOpen(false)} className="inline-flex items-center">
               <img
                 src="/assets/blck-wordmark.png"
                 alt="BLCK"
-                className="h-6 md:h-7 object-contain brightness-0 invert"
+                className="h-5 md:h-6 object-contain brightness-0 invert"
               />
             </Link>
 
             <button
               type="button"
               onClick={() => setMenuOpen(false)}
-              className="flex items-center gap-2 text-xs font-bold tracking-widest uppercase px-4 py-2 border border-white/20 rounded-full hover:bg-white hover:text-black transition-all"
+              className="flex items-center gap-2 text-xs font-bold tracking-widest uppercase px-3.5 py-1.5 border border-white/20 rounded-full hover:bg-white hover:text-black transition-all"
               aria-label="Close menu"
             >
               <span>CLOSE</span>
-              <X size={15} strokeWidth={2.5} />
+              <X size={14} strokeWidth={2.5} />
             </button>
           </div>
 
-          {/* Center Content Grid */}
-          <div className="max-w-[1460px] w-full mx-auto py-10 md:py-16 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center flex-1">
+          {/* Center Content Grid (Compact sizing prevents overflow slider) */}
+          <div className="max-w-[1460px] w-full mx-auto py-4 sm:py-5 md:py-6 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center flex-1 my-auto">
             {/* Left Nav Column: Big Streetwear Navigation Links */}
-            <div className="lg:col-span-7 flex flex-col gap-3 md:gap-5">
+            <div className="lg:col-span-7 flex flex-col gap-1 sm:gap-1.5 md:gap-2">
               {menuItems.map((item, index) => (
                 <NavLink
                   key={item.to}
                   to={item.to}
                   onClick={() => setMenuOpen(false)}
-                  className="group flex items-center justify-between py-2 border-b border-white/10 hover:border-white transition-colors"
+                  className="group flex items-center justify-between py-1.5 sm:py-2 border-b border-white/10 hover:border-white transition-colors"
                 >
-                  <div className="flex items-baseline gap-3 sm:gap-4 md:gap-6">
-                    <span className="text-[11px] sm:text-xs md:text-sm font-mono text-white/40 group-hover:text-[#028f99] transition-colors">
+                  <div className="flex items-baseline gap-3 sm:gap-4 md:gap-5">
+                    <span className="text-[10px] sm:text-xs font-mono text-white/40 group-hover:text-[#028f99] transition-colors">
                       0{index + 1}
                     </span>
-                    <span className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter uppercase group-hover:translate-x-2 transition-transform">
+                    <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-[44px] font-bold tracking-tighter uppercase group-hover:translate-x-2 transition-transform leading-tight">
                       {item.label}
                     </span>
                   </div>
                   <ArrowUpRight
-                    size={22}
-                    className="sm:w-7 sm:h-7 opacity-30 group-hover:opacity-100 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-[#028f99] transition-all"
+                    size={18}
+                    className="sm:w-5 sm:h-5 md:w-6 md:h-6 opacity-30 group-hover:opacity-100 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-[#028f99] transition-all"
                   />
                 </NavLink>
               ))}
             </div>
 
             {/* Right Aside Column: Featured Drop Showcase & Studio Info */}
-            <div className="lg:col-span-5 flex flex-col gap-8 lg:pl-12 lg:border-l lg:border-white/10">
+            <div className="lg:col-span-5 flex flex-col gap-4 sm:gap-5 lg:pl-10 lg:border-l lg:border-white/10">
               {/* Featured Drop 001 Card */}
               <div>
-                <span className="text-[10px] font-mono tracking-widest uppercase text-white/50 block mb-3">
+                <span className="text-[9px] font-mono tracking-widest uppercase text-white/50 block mb-2">
                   FEATURED DROP / 001
                 </span>
                 <Link
                   to="/product/blck-310-green-monster-socks"
                   onClick={() => setMenuOpen(false)}
-                  className="group block bg-[#05212b] border border-white/15 p-4 rounded-lg hover:border-[#028f99] transition-all"
+                  className="group block bg-[#05212b] border border-white/15 p-3 rounded-lg hover:border-[#028f99] transition-all"
                 >
-                  <div className="flex items-center gap-4">
-                    <div className="w-20 h-24 bg-white/5 rounded overflow-hidden flex-shrink-0 flex items-center justify-center p-1">
+                  <div className="flex items-center gap-3.5">
+                    <div className="w-14 h-18 bg-white/5 rounded overflow-hidden flex-shrink-0 flex items-center justify-center p-1">
                       <img
                         src="/assets/blck-310-green-socks.webp"
                         alt="310 Teal Monster Socks"
                         className="w-full h-full object-contain group-hover:scale-105 transition-transform"
                       />
                     </div>
-                    <div className="flex flex-col gap-1.5">
-                      <span className="text-xs font-mono text-[#028f99] font-bold">LIMITED EDITION</span>
-                      <strong className="text-sm md:text-base font-bold text-white tracking-tight">
+                    <div className="flex flex-col gap-1">
+                      <span className="text-[10px] font-mono text-[#028f99] font-bold">LIMITED EDITION</span>
+                      <strong className="text-xs sm:text-sm font-bold text-white tracking-tight">
                         310 TEAL MONSTER SOCKS
                       </strong>
-                      <span className="text-xs text-white/60 flex items-center gap-1 group-hover:text-white transition-colors">
-                        EXPLORE PRODUCT <ArrowUpRight size={13} />
+                      <span className="text-[11px] text-white/60 flex items-center gap-1 group-hover:text-white transition-colors">
+                        EXPLORE PRODUCT <ArrowUpRight size={12} />
                       </span>
                     </div>
                   </div>
@@ -323,41 +323,41 @@ export default function Header() {
               </div>
 
               {/* Collections Categories */}
-              <div className="grid grid-cols-2 gap-6 text-xs">
-                <div className="flex flex-col gap-2">
-                  <span className="font-mono text-[10px] uppercase text-white/40 tracking-wider">
+              <div className="grid grid-cols-2 gap-4 text-xs">
+                <div className="flex flex-col gap-1.5">
+                  <span className="font-mono text-[9px] uppercase text-white/40 tracking-wider">
                     COLLECTIONS
                   </span>
                   <Link
                     to="/collections"
                     onClick={() => setMenuOpen(false)}
-                    className="text-white/80 hover:text-white transition-colors"
+                    className="text-white/80 hover:text-white transition-colors text-[11px]"
                   >
                     All Collections
                   </Link>
                   <Link
                     to="/shop"
                     onClick={() => setMenuOpen(false)}
-                    className="text-white/80 hover:text-white transition-colors"
+                    className="text-white/80 hover:text-white transition-colors text-[11px]"
                   >
                     Footwear & Socks
                   </Link>
                   <Link
                     to="/shop"
                     onClick={() => setMenuOpen(false)}
-                    className="text-white/80 hover:text-white transition-colors"
+                    className="text-white/80 hover:text-white transition-colors text-[11px]"
                   >
                     Heavyweight Tees
                   </Link>
                 </div>
 
-                <div className="flex flex-col gap-2">
-                  <span className="font-mono text-[10px] uppercase text-white/40 tracking-wider">
+                <div className="flex flex-col gap-1.5">
+                  <span className="font-mono text-[9px] uppercase text-white/40 tracking-wider">
                     STUDIO
                   </span>
-                  <p className="text-white/80 m-0">New Delhi, India</p>
-                  <p className="text-white/50 text-[11px] m-0">contact@blckbrand.com</p>
-                  <span className="inline-flex items-center gap-1.5 text-[10px] text-emerald-400 font-mono mt-1">
+                  <p className="text-white/80 m-0 text-[11px]">New Delhi, India</p>
+                  <p className="text-white/50 text-[10px] m-0">contact@blckbrand.com</p>
+                  <span className="inline-flex items-center gap-1.5 text-[9px] text-emerald-400 font-mono mt-0.5">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                     STORE ACTIVE
                   </span>
@@ -367,7 +367,7 @@ export default function Header() {
           </div>
 
           {/* Bottom Footer Bar */}
-          <div className="max-w-[1460px] w-full mx-auto pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-[10px] md:text-xs font-mono tracking-widest text-white/40">
+          <div className="max-w-[1460px] w-full mx-auto pt-3 md:pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-4 text-[9px] sm:text-[10px] md:text-xs font-mono tracking-widest text-white/40 flex-shrink-0">
             <span>BLCK™ — MADE TO STAND APART</span>
             <div className="flex items-center gap-6">
               <a
