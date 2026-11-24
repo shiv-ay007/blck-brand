@@ -9,6 +9,10 @@ import Customers from '../Pages/Customers.jsx';
 import Payments from '../Pages/Payments.jsx';
 import Enquiries from '../Pages/Enquiries.jsx';
 import Settings from '../Pages/Settings.jsx';
+import Discounts from '../Pages/Discounts.jsx';
+import Shipping from '../Pages/Shipping.jsx';
+import Returns from '../Pages/Returns.jsx';
+import Reports from '../Pages/Reports.jsx';
 
 function ProtectedRoute({ children }) {
   const { user } = useAdmin();
@@ -54,6 +58,10 @@ export default function MainRoutes() {
         <Route path="products" element={<Products />} />
         <Route path="customers" element={<Customers />} />
         <Route path="payments" element={<Payments />} />
+        <Route path="discounts" element={<Discounts />} />
+        <Route path="shipping" element={<Shipping />} />
+        <Route path="returns" element={<Returns />} />
+        <Route path="reports" element={<Reports />} />
         <Route path="enquiries" element={<Enquiries />} />
         <Route path="settings" element={<Settings />} />
       </Route>

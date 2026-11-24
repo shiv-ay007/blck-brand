@@ -6,41 +6,41 @@ export default function StatusBadge({ status }) {
       case 'paid':
       case 'resolved':
       case 'active':
-        return 'bg-emerald-50 text-emerald-700 border-emerald-200';
+        return 'bg-emerald-50 text-emerald-800 border-emerald-300';
 
       // Pending / In progress
       case 'processing':
       case 'in progress':
       case 'shipped':
-        return 'bg-sky-50 text-sky-700 border-sky-200';
+        return 'bg-sky-50 text-sky-800 border-sky-300';
 
       case 'pending':
       case 'new':
       case 'low stock':
-        return 'bg-amber-50 text-amber-700 border-amber-200';
+        return 'bg-amber-50 text-amber-800 border-amber-300';
 
       // Danger / Cancelled / Failed
       case 'cancelled':
       case 'failed':
       case 'refunded':
       case 'out of stock':
-        return 'bg-rose-50 text-rose-700 border-rose-200';
+        return 'bg-rose-50 text-rose-800 border-rose-300';
 
       case 'hidden':
-        return 'bg-slate-100 text-slate-600 border-slate-300';
+        return 'bg-neutral-100 text-neutral-600 border-neutral-300';
 
       default:
-        return 'bg-slate-50 text-slate-700 border-slate-200';
+        return 'bg-neutral-100 text-neutral-700 border-neutral-300';
     }
   };
 
   return (
     <span
-      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold font-mono uppercase tracking-wide border ${getStyle(
+      className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold font-mono uppercase tracking-wider border ${getStyle(
         status
       )}`}
     >
-      <span className="w-1.5 h-1.5 rounded-full bg-current mr-1.5 opacity-80" />
+      <span className="w-1.5 h-1.5 rounded-full bg-current mr-2 opacity-80" />
       {status}
     </span>
   );

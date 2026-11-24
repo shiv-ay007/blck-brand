@@ -8,6 +8,9 @@ import {
   initialPayments,
   initialEnquiries,
   initialSettings,
+  initialDiscounts,
+  initialShipments,
+  initialReturns,
 } from '../data/mockData.js';
 
 const AdminContext = createContext();
@@ -78,6 +81,33 @@ export function AdminProvider({ children }) {
     }
   });
 
+  const [discounts, setDiscounts] = useState(() => {
+    try {
+      const saved = localStorage.getItem('blck_admin_discounts');
+      return saved ? JSON.parse(saved) : initialDiscounts;
+    } catch {
+      return initialDiscounts;
+    }
+  });
+
+  const [shipments, setShipments] = useState(() => {
+    try {
+      const saved = localStorage.getItem('blck_admin_shipments');
+      return saved ? JSON.parse(saved) : initialShipments;
+    } catch {
+      return initialShipments;
+    }
+  });
+
+  const [returns, setReturns] = useState(() => {
+    try {
+      const saved = localStorage.getItem('blck_admin_returns');
+      return saved ? JSON.parse(saved) : initialReturns;
+    } catch {
+      return initialReturns;
+    }
+  });
+
   // Sync to localStorage
   useEffect(() => {
     if (user) {
@@ -111,24 +141,45 @@ export function AdminProvider({ children }) {
     localStorage.setItem('blck_admin_settings', JSON.stringify(settings));
   }, [settings]);
 
+  useEffect(() => {
+    localStorage.setItem('blck_admin_discounts', JSON.stringify(discounts));
+  }, [discounts]);
+
+  useEffect(() => {
+    localStorage.setItem('blck_admin_shipments', JSON.stringify(shipments));
+  }, [shipments]);
+
+  useEffect(() => {
+    localStorage.setItem('blck_admin_returns', JSON.stringify(returns));
+  }, [returns]);
+
   // Auth Functions
   const login = (email, password) => {
-    if (
-      (email === 'admin@blckbrand.com' && password === 'admin123') ||
-      (email === 'admin' && password === 'admin')
-    ) {
+    const trimmedEmail = email ? email.trim() : '';
+    const trimmedPass = password ? password.trim() : '';
+
+    if (trimmedEmail && trimmedPass) {
+      let displayName = 'Admin';
+      if (trimmedEmail.includes('@')) {
+        const rawName = trimmedEmail.split('@')[0].replace(/[._-]/g, ' ');
+        displayName = rawName
+          .split(' ')
+          .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+          .join(' ');
+      }
+
       const adminData = {
-        name: 'BLCK Admin',
-        email: email === 'admin' ? 'admin@blckbrand.com' : email,
+        name: displayName,
+        email: trimmedEmail,
         role: 'Super Admin',
         avatar: '/assets/blck-monogram.png',
         loggedInAt: new Date().toISOString(),
       };
       setUser(adminData);
-      toast.success('Welcome back, Admin!');
+      toast.success(`Welcome back, ${displayName}!`);
       return true;
     }
-    toast.error('Invalid credentials! Try: admin@blckbrand.com / admin123');
+    toast.error('Invalid credentials. Please enter email and password.');
     return false;
   };
 
@@ -234,6 +285,70 @@ export function AdminProvider({ children }) {
     toast.success('Store settings saved successfully!');
   };
 
+  // Discount Actions
+  const addDiscount = (newDisc) => {
+    const item = {
+      ...newDisc,
+      id: `DISC-0${discounts.length + 1}`,
+      usedCount: 0,
+      status: 'Active',
+    };
+    setDiscounts((prev) => [item, ...prev]);
+    toast.success(`Promo code ${newDisc.code} created!`);
+  };
+
+  const deleteDiscount = async (id) => {
+    const res = await Swal.fire({
+      title: 'Delete Promo Code?',
+      text: 'Customers will no longer be able to use this code.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#ef4444',
+      confirmButtonText: 'Yes, Delete',
+    });
+    if (res.isConfirmed) {
+      setDiscounts((prev) => prev.filter((d) => d.id !== id));
+      toast.success('Promo code deleted');
+    }
+  };
+
+  // Shipping Actions
+  const createShippingLabel = (shipmentId) => {
+    setShipments((prev) =>
+      prev.map((s) => (s.id === shipmentId ? { ...s, labelStatus: 'Created', deliveryStatus: 'In Transit', lastSync: 'Just now' } : s))
+    );
+    toast.success('Shipping label generated & dispatched to courier!');
+  };
+
+  const syncCourierTracking = () => {
+    setShipments((prev) =>
+      prev.map((s) => ({ ...s, lastSync: 'Just now' }))
+    );
+    toast.success('Courier tracking synchronized via API!');
+  };
+
+  // Return & Refund Actions
+  const updateReturnStatus = async (returnId, status) => {
+    const isRefund = status === 'Refund Initiated';
+    const res = await Swal.fire({
+      title: isRefund ? 'Initiate Payment Refund?' : 'Update Return Request?',
+      text: isRefund
+        ? 'This will trigger the payment gateway API to refund the customer.'
+        : `Change status of return ${returnId} to ${status}?`,
+      icon: isRefund ? 'warning' : 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#040d12',
+      confirmButtonText: isRefund ? 'Yes, Process Refund' : 'Yes, Update',
+    });
+
+    if (res.isConfirmed) {
+      setReturns((prev) =>
+        prev.map((r) => (r.id === returnId ? { ...r, status } : r))
+      );
+      toast.success(isRefund ? 'Refund processed through payment provider!' : `Return marked as ${status}`);
+    }
+  };
+
   return (
     <AdminContext.Provider
       value={{
@@ -253,6 +368,14 @@ export function AdminProvider({ children }) {
         updateEnquiryStatus,
         settings,
         updateStoreSettings,
+        discounts,
+        addDiscount,
+        deleteDiscount,
+        shipments,
+        createShippingLabel,
+        syncCourierTracking,
+        returns,
+        updateReturnStatus,
       }}
     >
       {children}

@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { Search, Mail, Phone, MapPin, UserCheck, UserX, ShoppingBag, ArrowUpRight } from 'lucide-react';
+import { Search, Mail, Phone, MapPin, UserCheck, UserX } from 'lucide-react';
 import { useAdmin } from '../context/AdminContext.jsx';
 
 export default function Customers() {
@@ -31,134 +31,136 @@ export default function Customers() {
   const leadsOnly = customers.filter((c) => !c.hasOrdered).length;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8 font-sans">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-200">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3 border-b border-[#deded8]">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#028f99]">
+            <span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-[#028f99]">
               USER DIRECTORY
             </span>
-            <span className="text-slate-300">/</span>
-            <span className="text-xs font-mono text-slate-500">PROFILES</span>
+            <span className="text-neutral-300">/</span>
+            <span className="text-xs font-mono font-semibold text-neutral-500 uppercase tracking-widest">
+              PROFILES
+            </span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-1 font-mono">
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-neutral-900 tracking-tight mt-1.5 font-heading">
             CUSTOMER RECORDS
           </h1>
         </div>
 
         {/* Quick summary metrics */}
-        <div className="flex items-center gap-2">
-          <div className="bg-white border border-slate-200 px-3 py-1.5 rounded-lg text-xs font-mono">
-            Total: <strong className="text-slate-900">{totalRegistered}</strong>
+        <div className="flex items-center gap-2.5">
+          <div className="bg-white border border-[#deded8] px-4 py-2 rounded-xl text-xs font-mono">
+            Total: <strong className="text-neutral-900 font-bold">{totalRegistered}</strong>
           </div>
-          <div className="bg-emerald-50 border border-emerald-200 text-emerald-800 px-3 py-1.5 rounded-lg text-xs font-mono">
-            Buyers: <strong>{activeBuyers}</strong>
+          <div className="bg-emerald-50 border border-emerald-200 text-emerald-800 px-4 py-2 rounded-xl text-xs font-mono">
+            Buyers: <strong className="font-bold">{activeBuyers}</strong>
           </div>
-          <div className="bg-amber-50 border border-amber-200 text-amber-800 px-3 py-1.5 rounded-lg text-xs font-mono">
-            Leads: <strong>{leadsOnly}</strong>
+          <div className="bg-amber-50 border border-amber-200 text-amber-800 px-4 py-2 rounded-xl text-xs font-mono">
+            Leads: <strong className="font-bold">{leadsOnly}</strong>
           </div>
         </div>
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-xs flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
-        <div className="flex items-center gap-1.5">
+      <div className="bg-white border border-[#deded8] rounded-2xl p-4 sm:p-5 shadow-xs flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+        <div className="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0 scrollbar-none">
           <button
             onClick={() => setFilterType('All')}
-            className={`px-3 py-1.5 text-xs font-mono font-semibold rounded-lg transition-colors ${
-              filterType === 'All' ? 'bg-slate-900 text-white' : 'text-slate-600 hover:bg-slate-100'
+            className={`px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider rounded-xl transition-all ${
+              filterType === 'All' ? 'bg-neutral-900 text-white shadow-xs' : 'text-neutral-600 hover:bg-[#f7f7f4]'
             }`}
           >
             All Registered ({totalRegistered})
           </button>
           <button
             onClick={() => setFilterType('Ordered')}
-            className={`px-3 py-1.5 text-xs font-mono font-semibold rounded-lg transition-colors ${
-              filterType === 'Ordered' ? 'bg-slate-900 text-white' : 'text-slate-600 hover:bg-slate-100'
+            className={`px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider rounded-xl transition-all ${
+              filterType === 'Ordered' ? 'bg-neutral-900 text-white shadow-xs' : 'text-neutral-600 hover:bg-[#f7f7f4]'
             }`}
           >
             Active Buyers ({activeBuyers})
           </button>
           <button
             onClick={() => setFilterType('NoOrder')}
-            className={`px-3 py-1.5 text-xs font-mono font-semibold rounded-lg transition-colors ${
-              filterType === 'NoOrder' ? 'bg-slate-900 text-white' : 'text-slate-600 hover:bg-slate-100'
+            className={`px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider rounded-xl transition-all ${
+              filterType === 'NoOrder' ? 'bg-neutral-900 text-white shadow-xs' : 'text-neutral-600 hover:bg-[#f7f7f4]'
             }`}
           >
             No Orders Yet ({leadsOnly})
           </button>
         </div>
 
-        <div className="relative min-w-[240px]">
-          <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+        <div className="relative min-w-[280px]">
+          <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-400" />
           <input
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search customer by name, email, city..."
-            className="w-full pl-9 pr-3 py-1.5 text-xs border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-slate-900 font-mono"
+            className="w-full pl-10 pr-4 py-2 text-xs border border-[#deded8] rounded-xl focus:outline-none focus:ring-1 focus:ring-neutral-900 font-mono"
           />
         </div>
       </div>
 
       {/* Customers Table */}
-      <div className="bg-white border border-slate-200 rounded-xl shadow-xs overflow-hidden">
+      <div className="bg-white border border-[#deded8] rounded-2xl shadow-xs overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
-            <thead className="bg-slate-50 text-slate-500 font-mono uppercase tracking-wider border-b border-slate-200">
+          <table className="w-full text-left text-sm">
+            <thead className="bg-[#f7f7f4] text-neutral-500 font-mono text-xs uppercase tracking-wider border-b border-[#deded8]">
               <tr>
-                <th className="py-3 px-4">Customer ID</th>
-                <th className="py-3 px-4">Name & City</th>
-                <th className="py-3 px-4">Contact Info</th>
-                <th className="py-3 px-4">Registered Date</th>
-                <th className="py-3 px-4">Orders Placed</th>
-                <th className="py-3 px-4">Total Spent</th>
-                <th className="py-3 px-4 text-right">Account Type</th>
+                <th className="py-4 px-5">Customer ID</th>
+                <th className="py-4 px-5">Name & City</th>
+                <th className="py-4 px-5">Contact Info</th>
+                <th className="py-4 px-5">Registered Date</th>
+                <th className="py-4 px-5">Orders Placed</th>
+                <th className="py-4 px-5">Total Spent</th>
+                <th className="py-4 px-5 text-right">Account Type</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-[#deded8]/60">
               {filteredCustomers.length > 0 ? (
                 filteredCustomers.map((cust) => (
-                  <tr key={cust.id} className="hover:bg-slate-50/80 transition-colors">
-                    <td className="py-3.5 px-4 font-mono font-bold text-slate-900">
+                  <tr key={cust.id} className="hover:bg-[#f7f7f4]/60 transition-colors">
+                    <td className="py-4 px-5 font-mono font-bold text-neutral-900 text-sm">
                       {cust.id}
                     </td>
-                    <td className="py-3.5 px-4">
-                      <div className="font-semibold text-slate-800 text-sm">{cust.name}</div>
-                      <div className="text-[11px] text-slate-400 font-mono flex items-center gap-1 mt-0.5">
-                        <MapPin size={11} />
+                    <td className="py-4 px-5">
+                      <div className="font-bold text-neutral-900 text-sm font-heading">{cust.name}</div>
+                      <div className="text-xs text-neutral-500 font-mono flex items-center gap-1 mt-0.5">
+                        <MapPin size={12} className="text-neutral-400" />
                         <span>{cust.city}</span>
                       </div>
                     </td>
-                    <td className="py-3.5 px-4">
-                      <div className="text-slate-700 flex items-center gap-1.5 font-mono">
-                        <Mail size={12} className="text-slate-400" />
+                    <td className="py-4 px-5">
+                      <div className="text-neutral-800 flex items-center gap-2 font-mono text-xs">
+                        <Mail size={13} className="text-neutral-400" />
                         <span>{cust.email}</span>
                       </div>
-                      <div className="text-slate-500 flex items-center gap-1.5 font-mono text-[11px] mt-0.5">
-                        <Phone size={11} className="text-slate-400" />
+                      <div className="text-neutral-500 flex items-center gap-2 font-mono text-xs mt-1">
+                        <Phone size={13} className="text-neutral-400" />
                         <span>{cust.phone}</span>
                       </div>
                     </td>
-                    <td className="py-3.5 px-4 font-mono text-slate-600">
+                    <td className="py-4 px-5 font-mono text-xs text-neutral-600">
                       {cust.registeredDate}
                     </td>
-                    <td className="py-3.5 px-4 font-mono font-bold text-slate-900">
+                    <td className="py-4 px-5 font-mono font-bold text-neutral-900 text-sm">
                       {cust.ordersCount} {cust.ordersCount === 1 ? 'order' : 'orders'}
                     </td>
-                    <td className="py-3.5 px-4 font-mono font-bold text-slate-900">
+                    <td className="py-4 px-5 font-mono font-bold text-neutral-900 text-sm">
                       ₹{cust.totalSpent.toLocaleString('en-IN')}
                     </td>
-                    <td className="py-3.5 px-4 text-right">
+                    <td className="py-4 px-5 text-right">
                       {cust.hasOrdered ? (
-                        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-mono font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                          <UserCheck size={12} />
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-emerald-50 text-emerald-800 border border-emerald-300">
+                          <UserCheck size={13} />
                           <span>Active Buyer</span>
                         </span>
                       ) : (
-                        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-mono font-semibold bg-amber-50 text-amber-700 border border-amber-200">
-                          <UserX size={12} />
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-amber-50 text-amber-800 border border-amber-300">
+                          <UserX size={13} />
                           <span>No Orders Yet</span>
                         </span>
                       )}
@@ -167,7 +169,7 @@ export default function Customers() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={7} className="py-8 text-center text-slate-400 font-mono text-xs">
+                  <td colSpan={7} className="py-12 text-center text-neutral-400 font-mono text-sm">
                     No customers found matching the search criteria.
                   </td>
                 </tr>

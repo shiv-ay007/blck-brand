@@ -1,5 +1,5 @@
 import { ArrowUpRight, ArrowRight } from 'lucide-react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import BrandLogo from '../common/BrandLogo.jsx';
 
 export default function Footer() {
@@ -14,9 +14,23 @@ export default function Footer() {
             <em>OWN ENERGY.</em>
           </h2>
         </div>
-        <a href="mailto:blckofficial2026@gmail.com?subject=BLCK%20Enquiry" className="footer__reach">
-          LET'S TALK <ArrowUpRight size={28}/>
-        </a>
+        <Link
+          to="/contact"
+          className="group relative inline-flex items-center gap-4 sm:gap-6 px-6 sm:px-8 py-4 sm:py-5 rounded-full bg-white text-black hover:bg-[#028f99] hover:text-white transition-all duration-300 shadow-xl hover:shadow-[0_0_35px_rgba(2,143,153,0.45)] hover:scale-105 active:scale-95 no-underline flex-shrink-0 mt-8 lg:mt-0"
+          aria-label="Contact BLCK"
+        >
+          <div className="flex flex-col text-left">
+            <span className="text-[10px] sm:text-[11px] font-mono tracking-[0.22em] uppercase text-black/60 group-hover:text-white/80 transition-colors font-bold">
+              GET IN TOUCH
+            </span>
+            <span className="text-base sm:text-xl font-bold font-mono tracking-wider uppercase leading-tight mt-0.5">
+              LET'S TALK
+            </span>
+          </div>
+          <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-black text-white group-hover:bg-white group-hover:text-[#028f99] flex items-center justify-center transition-all duration-300 group-hover:rotate-45 shadow-sm flex-shrink-0">
+            <ArrowUpRight size={22} strokeWidth={2.5} />
+          </div>
+        </Link>
       </div>
       <div className="shell footer__grid">
         <div className="footer__brand">

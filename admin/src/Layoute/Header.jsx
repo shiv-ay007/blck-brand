@@ -1,44 +1,38 @@
-import { Menu, Bell, Shield, Calendar } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import { useAdmin } from '../context/AdminContext.jsx';
 
 export default function Header({ onMenuClick }) {
-  const { user } = useAdmin();
+  const { user, settings } = useAdmin();
 
-  const todayFormatted = new Intl.DateTimeFormat('en-IN', {
-    weekday: 'short',
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
-  }).format(new Date());
+  const adminName = user?.name || settings?.adminName || 'Admin';
 
   return (
-    <header className="sticky top-0 z-30 h-16 bg-white border-b border-slate-200 px-4 sm:px-8 flex items-center justify-between">
-      {/* Left: Mobile hamburger & Welcome */}
-      <div className="flex items-center gap-3">
+    <header className="sticky top-0 z-30 h-20 bg-white/95 backdrop-blur-md border-b border-[#deded8] px-5 sm:px-8 lg:px-10 flex items-center justify-between transition-all">
+      {/* Left: Mobile-only trigger & Welcome greeting */}
+      <div className="flex items-center gap-4">
+        {/* Mobile-only toggle if sidebar is closed offscreen */}
         <button
+          type="button"
           onClick={onMenuClick}
-          className="p-2 rounded-lg text-slate-600 hover:bg-slate-100 md:hidden"
+          className="p-2.5 rounded-xl text-neutral-700 hover:text-black hover:bg-neutral-100 transition-all cursor-pointer flex md:hidden items-center justify-center border border-[#deded8] bg-white shadow-xs active:scale-95"
           aria-label="Open sidebar"
+          title="Open sidebar"
         >
-          <Menu size={20} />
+          <Menu size={20} strokeWidth={2} />
         </button>
 
-        <div className="hidden sm:flex items-center gap-2 text-xs font-mono text-slate-500">
-          <Calendar size={14} className="text-[#028f99]" />
-          <span>{todayFormatted}</span>
+        {/* Welcome back Greeting */}
+        <div className="flex items-center gap-2 text-base sm:text-lg font-bold font-heading text-neutral-900 tracking-tight">
+          <span>Welcome back,</span>
+          <span className="text-[#028f99] font-black">{adminName}</span>
         </div>
       </div>
 
-      {/* Right: Status badge & Admin profile pill */}
-      <div className="flex items-center gap-3">
-        <div className="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-700 text-[11px] font-mono">
-          <Shield size={12} className="text-[#028f99]" />
-          <span>BLCK HQ CONTROL</span>
-        </div>
-
+      {/* Right: Admin profile pill */}
+      <div className="flex items-center gap-4">
         {/* Profile Info */}
-        <div className="flex items-center gap-2.5 pl-3 border-l border-slate-200">
-          <div className="w-8 h-8 rounded-full bg-[#040d12] flex items-center justify-center p-1 border border-slate-300">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-full bg-[#040d12] flex items-center justify-center p-2 shadow-xs border border-black/10">
             <img
               src="/assets/blck-monogram.png"
               alt="Admin"
@@ -46,10 +40,10 @@ export default function Header({ onMenuClick }) {
             />
           </div>
           <div className="hidden sm:block text-left">
-            <div className="text-xs font-bold text-slate-900 leading-tight">
-              {user?.name || 'Administrator'}
+            <div className="text-sm font-bold text-neutral-900 font-heading leading-tight tracking-tight">
+              {adminName}
             </div>
-            <div className="text-[10px] font-mono text-slate-400">
+            <div className="text-[11px] font-mono text-neutral-400 uppercase tracking-wider">
               {user?.role || 'Super Admin'}
             </div>
           </div>
